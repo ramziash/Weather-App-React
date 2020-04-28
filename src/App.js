@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import CityForcast from './components/CityWeather';
 
 
 function App() {
+
+  useEffect( ()=> {
+    document.title = 'Weather Forcast'
+  }, []);
+
   return (
     <div className="App">
 

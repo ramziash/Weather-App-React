@@ -36,3 +36,75 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Search bar */
+
+.searchBarStyle {
+  width: 15em;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.inputStyle {
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  height: 1.75em;
+  border-right: 2px solid #0f4c75;
+  border-bottom: 2px solid #0f4c75;
+  font-size: 1.5em;
+  color: #0f4c75;
+}
+
+.buttonStyle {
+  margin-left: 25px;
+  border-radius: 25px;
+  background: lightskyblue;
+  margin-top: 5%;
+  padding: 10px;
+  height: 3em;
+  color: #0f4c75;
+  font-family: "Arial";
+}
+
+/* Weather info*/
+
+.details {
+  margin: 5% auto;
+  width: 18em;
+  border: 3px solid #0f4c75;
+  padding: 2%;
+  color: #0f4c75;
+  position: relative;
+}
+
+.delete-button {
+  width: 2em;
+  height: 2em;
+  background-color: #f88e1e;
+  border: 5px solid #3282b8;
+  outline: none;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.85em;
+  right: -0.85em;
+  font-size: 1em;
+  font-weight: bold;
+  color: #3282b8;
+}
+
+/*Graph info*/
+
+.graphUrl {
+  text-decoration: none;
+  color:#0f4c75
+}
+
+.cityWeatherDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

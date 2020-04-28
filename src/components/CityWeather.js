@@ -1,23 +1,66 @@
-import React from 'react';
-import CityData from './city-weather.json';
+import React, { useState } from 'react';
+import Search from './searchbar';
+import CityDetails from './cityDetails';
+import CityGraph from './Page/GraphPage';
+import {
+    BrowserRouter as Router,
+    Route,
+  } from "react-router-dom";
+ 
 
-const kelvinCelcius = (kelvin)=> {return (kelvin-273).toFixed(2)};
+
 
 const CityForcast = () => {
 
+    const [city, setCity] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [hasError, setError] = useState(false);
+    const [indexMessage, setIndexMessage] = useState('Input City name below');
+
+
+    const getCity =  (cityReq) => {
+
+        setLoading(true)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityReq}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+            setLoading(false);
+            const listOfCities = city.filter(item => item.id !==data.id)
+            setCity([data, ...listOfCities]);
+            setIndexMessage('Received');
+            
+        })
+        .catch(err => {
+            setError(true);
+            setLoading(false);
+        }) 
+
+    }
+
+    const deleteCity= (id) => {
+        const listOfCities = city.filter(item => item.id !==id)
+        setCity(listOfCities)
+    }
+    
+
     return (
-        CityData.map(city => {
-            return (
-            <div style = {{border : '2px solid black', margin : '10px', paddingLeft : '10px' }} >
-                <h1 style = {{fontSize : '1.5em'}}> {city.name}, {city.sys.country}</h1>
-                <p style={{fontWeight:'bold', fontSize:'1em'}}> {city.weather[0].description}</p>
-                <div style={{lineHeight:'1em', paddingTop : '1em' }}>
-                    <p> min temp: {kelvinCelcius (city.main.temp_min)} °C</p>
-                    <p> max temp: {kelvinCelcius (city.main.temp_max)} °C</p>
-                    <p> Location: {city.coord.lat}, {city.coord.lon}</p>
+        <Router>
+
+            <Route exact path = '/'>
+                <div>
+                    {<h3>{indexMessage}</h3>}
+                    {<Search getCity = {getCity}/>}
+                    {isLoading && <p>Loading ...</p>}
+                    {city && <CityDetails cityInfo = {city} deleteItem = {deleteCity}/>}
+                    {hasError && <p>Something went Wrong</p>}
                 </div>
-            </div>
-        )})
+            </Route>
+
+            <Route exact path='/:cityId'>
+                <CityGraph/>
+            </Route>
+
+        </Router>
     )
 
 };
