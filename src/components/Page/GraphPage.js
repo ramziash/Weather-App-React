@@ -26,7 +26,7 @@ const CityGraph = () => {
 
     const getGraph = () => {
         setLoading(true);
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}&units=metric`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}&units=metric`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
